@@ -34,6 +34,16 @@ module.exports = {
     }
   },
 
+  //! fetch restaurants
+  getAllRestaurants: async (req, res) => {
+    try {
+      const restaurants = await Restaurant.find();
+      res.status(200).json({ status: true, message: restaurants });
+    } catch (error) {
+      res.status(500).json({ status: false, message: error.message });
+    }
+  },
+
   getRestaurntById: async (req, res) => {
     const id = req.params.id;
     try {
