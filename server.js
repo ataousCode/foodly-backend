@@ -5,6 +5,7 @@ const CategoryRouter = require("./routes/category-route");
 const RestaurantRouter = require("./routes/restaurant-route");
 const FoodRouter = require("./routes/food-route");
 const RatingRouter = require("./routes/rating-route");
+const generateOtp = require("./utils/otp_generator");
 
 //vGLZUBa4PbKGMLd6
 
