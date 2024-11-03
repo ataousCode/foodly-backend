@@ -44,6 +44,16 @@ module.exports = {
     }
   },
 
+  getFoodById: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const food = await Food.findById(id);
+      res.status(200).json({ status: true, message: food });
+    } catch (error) {
+      res.status(500).json({ status: false, message: error.message });
+    }
+  },
+
   getRandomFood: async (req, res) => {
     try {
       let randomFoodList = [];
@@ -133,6 +143,9 @@ module.exports = {
           },
         },
       ]);
+      if (results.length === 0) {
+        res.status(404).json({ status: false, message: "No found found" });
+      }
       res.status(200).json({ status: true, message: results });
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
