@@ -35,7 +35,7 @@ module.exports = {
       }
 
       // generate Otp digit
-      const get_otp = generateOtp();
+      const otp = generateOtp();
 
       // create a new user
       const newUser = new User({
@@ -46,7 +46,7 @@ module.exports = {
           req.body.password,
           process.env.SECRET
         ).toString(),
-        otp: get_otp,
+        otp: otp,
       });
 
       //save the new create user to the db
@@ -64,5 +64,60 @@ module.exports = {
     }
   },
 
-  login: async (req, res) => {},
+  login: async (req, res) => {
+    const validEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!validEmail.test(req.body.email)) {
+      return res
+        .status(400)
+        .json({ status: false, message: "Email is not valid" });
+    }
+
+    const minPasswordLength = 8;
+
+    if (req.body.password < minPasswordLength) {
+      return res.status(400).json({
+        status: false,
+        message:
+          "Password should be at least " +
+          minPasswordLength +
+          " characters long",
+      });
+    }
+
+    try {
+      const user = await User.findOne({ email: req.body.email });
+
+      if (!user) {
+        res.status(400).json({ status: false, message: "Invalid credentials" });
+      }
+
+      const decryptedPassword = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.SECRET
+      );
+      const depassword = decryptedPassword.toString(CryptoJS.enc.Utf8);
+
+      if (depassword !== req.body.password) {
+        return res
+          .status(400)
+          .json({ status: false, message: "Invalid credentials" });
+      }
+
+      const userToken = jwt.sign(
+        {
+          id: user._id,
+          userType: user.userType,
+          email: user.email,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+
+      const { password, createdAt, updatedAt, __v, otp, ...others } = user._doc;
+      res.status(200).json({ ...others, userToken });
+    } catch (error) {
+      res.status(500).json({ status: false, message: error.message });
+    }
+  },
 };
