@@ -27,3 +27,5 @@ async function sendEmail(userEmail, message) {
     console.log("Email sending failed with error: ", error.message);
   }
 }
+
+module.exports = sendEmail;
