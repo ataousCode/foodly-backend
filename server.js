@@ -4,6 +4,7 @@ const monogoose = require("mongoose");
 const CategoryRouter = require("./routes/category-route");
 const RestaurantRouter = require("./routes/restaurant-route");
 const FoodRouter = require("./routes/food-route");
+const RatingRouter = require("./routes/rating-route");
 
 //vGLZUBa4PbKGMLd6
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/categories", CategoryRouter);
 app.use("/api/v1/restaurants", RestaurantRouter);
 app.use("/api/v1/foods", FoodRouter);
+app.use("/api/v1/ratings", RatingRouter);
 
 app.listen(process.env.PORT || 6013, () =>
   console.log(`Foodly Backend is running on ${process.env.PORT}!`)
