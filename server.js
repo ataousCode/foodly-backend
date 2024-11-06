@@ -8,6 +8,7 @@ const RatingRoute = require("./routes/rating-route");
 const AuthenticationRoute = require("./routes/authentication-route");
 const UserRoute = require("./routes/user-route");
 const AddressRoute = require("./routes/address-route");
+const CartRoute = require("./routes/cart-route");
 //vGLZUBa4PbKGMLd6
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use("/api/v1/ratings", RatingRoute);
 app.use("/api/v1/authentications", AuthenticationRoute);
 app.use("/api/v1/users", UserRoute);
 app.use("/api/v1/address", AddressRoute);
+app.use("/api/v1/carts", CartRoute);
 
 app.listen(process.env.PORT || 6013, () =>
   console.log(`Foodly Backend is running on ${process.env.PORT}!`)
