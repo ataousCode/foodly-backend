@@ -82,28 +82,29 @@ module.exports = {
     }
   },
 
-  getAllNearbyRestaurants: async (req, res) => {
+  getAllNearByRestaurants: async (req, res) => {
     const code = req.params.code;
     try {
-      let allNearbyRestaurants = [];
+      let allNearByRestaurants = [];
 
       if (code) {
-        allNearbyRestaurants = await Restaurant.aggregate([
+        allNearByRestaurants = await Restaurant.aggregate([
           { $match: { code: code, isAvailable: true } },
-          { $project: { __v: 0 } },
+          { $project: { __v: 0 } }
         ]);
       }
 
-      if (allNearbyRestaurants.length === 0) {
+      if (allNearByRestaurants.length === 0) {
         allNearByRestaurants = await Restaurant.aggregate([
           { $match: { isAvailable: true } },
-          { $project: { __v: 0 } },
+          { $project: { __v: 0 } }
         ]);
       }
 
-      res.status(200).json({ status: true, message: allNearbyRestaurants });
+      res.status(200).json(allNearByRestaurants);
+
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
-  },
+  }
 };

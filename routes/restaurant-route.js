@@ -5,6 +5,6 @@ router.post("/create", restaurantController.addRestaurant);
 router.get("/", restaurantController.getAllRestaurants);
 router.get("/:id", restaurantController.getRestaurntById);
 router.get("/random/:code", restaurantController.getRandomRestaurants);
-router.get("/all/:code", restaurantController.getAllNearbyRestaurants);
+router.get("/all/:code", restaurantController.getAllNearByRestaurants);
 
 module.exports = router;
