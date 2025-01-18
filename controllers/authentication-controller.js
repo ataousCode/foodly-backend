@@ -113,7 +113,7 @@ module.exports = {
           email: user.email,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "1d" }
+        { expiresIn: "21d" }
       );
 
       const { password, createdAt, updatedAt, __v, otp, ...others } = user._doc;

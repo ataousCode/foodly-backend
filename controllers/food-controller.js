@@ -77,7 +77,7 @@ module.exports = {
 
       // respond with the results
       if (randomFoodList.length) {
-        res.status(200).json({ status: true, message: randomFoodList });
+        res.status(200).json(randomFoodList); //{ status: true, message: randomFoodList }
       } else {
         res.status(404).json({ status: false, message: "No Foods found" });
       }
@@ -91,9 +91,9 @@ module.exports = {
 
     try {
       const foodList = await Food.find({ code: code });
-      return res.status(200).json({ status: true, message: foodList });
+      return res.status(200).json(foodList); //{ status: true, message: foodList }
     } catch (error) {
-      res.status(500).json({ status: false, message: error.message });
+      res.status(500).json(foodList); //{ status: false, message: error.message }
     }
   },
 
@@ -101,7 +101,7 @@ module.exports = {
     const id = req.params.id;
     try {
       const foods = await Food.find({ restaurant: id });
-      res.status(200).json({ status: true, message: foods });
+      res.status(200).json(foods);
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
@@ -122,7 +122,7 @@ module.exports = {
         });
       }
 
-      res.status(200).json({ status: true, message: foods });
+      res.status(200).json(foods);
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
@@ -143,10 +143,10 @@ module.exports = {
           },
         },
       ]);
-      if (results.length === 0) {
-        res.status(404).json({ status: false, message: "No found found" });
-      }
-      res.status(200).json({ status: true, message: results });
+      // if (results.length === 0) {
+      //   res.status(404).json({ status: false, message: "No found found" });
+      // }
+      res.status(200).json(results);
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }
@@ -173,7 +173,7 @@ module.exports = {
           { $sample: { size: 10 } },
         ]);
       }
-      res.status(200).json({ status: false, message: foods });
+      res.status(200).json(foods); //{ status: false, message: foods }
     } catch (error) {
       res.status(500).json({ status: false, message: error.message });
     }

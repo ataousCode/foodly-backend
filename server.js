@@ -11,6 +11,7 @@ const AddressRoute = require("./routes/address-route");
 const CartRoute = require("./routes/cart-route");
 const OrderRoute = require("./routes/order-route");
 //vGLZUBa4PbKGMLd6
+//n9FqN5xT
 
 dotenv.config();
 
@@ -35,5 +36,5 @@ app.use("/api/v1/carts", CartRoute);
 app.use("/api/v1/orders", OrderRoute);
 
 app.listen(process.env.PORT || 6013, () =>
-  console.log(`Foodly Backend is running on ${process.env.PORT}!`)
+  console.log(`Food-ly Backend is running on ${process.env.PORT}!`)
 );
